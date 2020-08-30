@@ -35,10 +35,14 @@ def _clean_up_values(info, value):
 
 def _unite_card_info_into_single_string(card, to_predict):
     text = []
+    label = ''  # Removable
     for info in card:
         if info != to_predict:
             text.append(_clean_up_values(info, card[info]))
-    return ' '.join(text)
+        else:
+            # Labels are strings not vectors or integers/floats
+            label = _clean_up_values(info, card[info])
+    return ' '.join(text), label
 
 
 def load_data(dataset, to_predict):
